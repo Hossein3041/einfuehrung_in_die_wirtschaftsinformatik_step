@@ -1,0 +1,4 @@
+vorname:franjo nachname:fliege geboren:2007 rolle:stud
+vorname:fabian nachname:falke geboren:1991 rolle:stud
+vorname:fabian nachname:fliege geboren:1996 rolle:stud
+vorname:franjo nachname:falke geboren:1992 rolle:mita

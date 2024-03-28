@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "<!doctype html>
+<html>
+  <head>
+    <a meta charset='utf-8'>
+    <title>Title</title>
+  </head>
+  <body>" > csv-in-html.txt
+    echo "<table>" >> csv-in-html.txt
+    cat datei.txt | sed "s/^/<tr><td>/g" | sed "s/|/<\/td><td>/g" | sed "s/$/<\/td></tr>/g" >> csv-in-html.txt
+    echo "</table>
+  </body>
+</html>" >> csv-in-html.txt
+tidy -i -q csv-in-html.txt csv-in-html.html

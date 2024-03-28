@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<head>
+ <title>Das ist der Titel</title>
+</head>
+<body>
+ <table>
+</table>
+</body>
+</html>

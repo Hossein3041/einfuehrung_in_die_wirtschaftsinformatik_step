@@ -1,0 +1,6 @@
+paul stud b notebook:nein
+martin stud b notebook:nein
+thorsten stud a notebook:nein
+timo stud b notebook:nein
+claudia stud a notebook:nein
+tamara stud b notebook:nein

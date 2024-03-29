@@ -1,0 +1,73 @@
+#!/bin/bash
+echo "Content-Type: text/html"
+echo ""
+
+
+
+echo "<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>STEP-Projekt</title>
+<meta name='vieweport' content='width=device-width, initial-scale=1'/>
+<body>"
+
+qscodiert=$(echo "$QUERY_STRING" | sed 's/+/ /g' \
+                                 | sed 's/%20/ /g' \
+                                 | sed 's/%21/!/g' \
+                                 | sed 's/%22/"/g' \
+                                 | sed 's/%23/#/g' \
+                                 | sed 's/%24/$/g' \
+                                 | sed 's/%25/%/g' \
+                                 | sed 's/%26/\&/g' \
+                                 | sed 's/%28/(/g' \
+                                 | sed 's/%29/)/g' \
+                                 | sed 's/%2A/*/g' \
+                                 | sed 's/%2B/+/g' \
+                                 | sed 's/%2C/,/g' \
+                                 | sed 's/%2F/\//g' \
+                                 | sed 's/%3A/:/g' \
+                                 | sed 's/%3B/;/g' \
+                                 | sed 's/%3C/</g' \
+                                 | sed 's/%3D/=/g' \
+                                 | sed 's/%3E/>/g' \
+                                 | sed 's/%3F/?/g' \
+                                 | sed 's/%40/@/g' \
+                                 | sed 's/%5B/[/g' \
+                                 | sed 's/%5C/\\/g' \
+                                 | sed 's/%5D/]/g' \
+                                 | sed 's/%5E/\^/g' \
+                                 | sed 's/%5F/_/g' \
+                                 | sed 's/%60/`/g' \
+                                 | sed 's/%7B/{/g' \
+                                 | sed 's/%7C/|/g' \
+                                 | sed 's/%7D/}/g' \
+                                 | sed 's/%7E/~/g')
+
+
+
+
+namenauscsv=$(cat typ-05.csv | cut -d "|" -f 6| sort| uniq| tail -n +2)
+schiffnamen=$(echo $qscodiert| cut -d "=" -f 2)
+datum=$(cat typ-05.csv | grep "$schiffnamen"| cut -d '|' -f 1| cut -d ' ' -f 1 | sort| uniq| while read -r line; do echo "$line <br>"; done)
+adatum=$(echo "$qscodiert"| cut -d "=" -f 3)
+uhrzeit=$(cat typ-05.csv | grep "$adatum"| cut -d "|" -f 1| cut -d " " -f 2| sort| uniq| while read -r line; do echo "$line <br>"; done)
+
+
+echo "<a href="https://informatik.hs-bremerhaven.de/docker-step2022team08-web/cgi-bin/step/alleschiffe.sh">ALLE SCHIFFE</a>"
+
+
+
+echo "<form action='https://informatik.hs-bremerhaven.de/docker-step2022team08-web/cgi-bin/step/formular-01.sh' method='get'>
+   <label for='schiffnamen'>SCHIFFNAME:</label>
+   <select id='schiffnamen' name='schiffnamen'>"
+
+for i in $namenauscsv; do echo "<option value='$i'>$i</option>"; done
+
+echo "</select>
+<br><br>
+<input type='submit' value='Absenden'>
+    </form>"
+
+echo "</body>
+</html>"
